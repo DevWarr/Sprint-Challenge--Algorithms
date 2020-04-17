@@ -71,4 +71,27 @@ def bunnEars(bunnies):
 
 ## Exercise II
 
+There are two ways the I first think of to find the floor where eggs first start breaking. We can safely say:
+    -   The building has floors numbered numerically
+    -   There is no 'gradual breaking'. In other words, etiher the eggs don't break, or they all break (boolean values instead of weighted values)
+    
+    -   We could have our building like an array:
+        -   [False, False, False, False, False, True, True, True]
+    -   We're looking for the _one specific floor_ where the eggs will break, but one floor down the eggs won't break
 
+The first way to search would be linear:
+    -   Start at the top of the buiding, and check: Will eggs break? 
+    -   If the eggs will break, then will they break one floor down?
+    -   If the eggs break on our current floor _and_ they break one floor down, we're too high.
+    -   If the eggs break on our current floor, but they _don't break_ one floor down, we've found our floor.
+    - Time Complexity: O(n)
+
+The second way to search would be binary:
+    -   Our building is numerically floored, so it's considered sorted.
+    -   Look at the half way point in the building: Will eggs break?
+    -   If the eggs will break, then will they break one floor down?
+        -   If the eggs break on our current floor _and they break one floor down,_ we're too high. Take the lower half of the list and search again.
+    -   If the eggs will not break, when will they break one floor up?
+        -   If the eggs don't break on our current floor _and they don't break one floor up,_ we're too low. Take the upper half of the list and search again.
+    -   Once we find a pair where the lower floor doesn't break eggs and one floor up does break eggs, we can return the floor that does break eggs as our answer.
+    - Time Complexity: O(log(n))
